@@ -1,0 +1,1615 @@
+﻿{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# IST 652 - Lecture 3B"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Explore:\n",
+    "    - Tuples\n",
+    "    - Dictionaries\n",
+    "    - Reading in CSV Files\n",
+    "    - Try and Except logic"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pprint import pprint"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### So far in Python, we have seen the data structures for strings, and lists.\n",
+    "\n",
+    "### <span style=\"color:DarkOrange\"> Two additional data structures we'll introduce today are <u>tuples</u> and <u>dictionaries</u>.</span>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Tuples"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Tuples are very much like lists in that you give a sequence of items.\n",
+    "- However, the idea is that you want to create a fixed-length sequence, often a small number of items like 2 or 3.\n",
+    "- Additionally the elements of the tuple will not change or undergo manipulation as they are immutable."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- You write a tuple by adding the items in parentheses separating elements with commas.\n",
+    "- You can do most of the sequence operations like finding the length and indexing.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "tuple"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "fruittuple = ('acai','cherry')\n",
+    "type(fruittuple)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "acai\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(len(fruittuple))\n",
+    "print(fruittuple[0])"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "But again, you cannot assign to individual items:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "'tuple' object does not support item assignment",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-4-281c8761f41b>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mfruittuple\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'orange'\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: 'tuple' object does not support item assignment"
+     ]
+    }
+   ],
+   "source": [
+    "fruittuple[2] = 'orange'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Dictionaries"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Our last main built-in data structure for Python is the dictionary.\n",
+    "    - sometimes called hash tables in other languages.\n",
+    "    \n",
+    "- A Python dictionary consists of (key, value) pairs.\n",
+    "\n",
+    "\n",
+    "- While the previous data structures were all indexed by integers from 0 to N-1, for a structure of length N\n",
+    "    - With dictionaries, the keys are used to index the values.\n",
+    "    - This means that dictionaries are non-ordered or non-sequential."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'dict'>\n"
+     ]
+    }
+   ],
+   "source": [
+    "# create an empty dictionary\n",
+    "emptydict = dict()\n",
+    "\n",
+    "print(type(emptydict))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'dict'>\n"
+     ]
+    }
+   ],
+   "source": [
+    "#It also works to initialize an empty dictionary with the curly braces:\n",
+    "emptydict2 = {}\n",
+    "print(type(emptydict2))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Truth validation\n",
+    "emptydict == emptydict2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##### Now we put some  key, value pairs into a dictionary.\n",
+    "\n",
+    "- The syntax uses a : in-between the key and value:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "phonedict = {'eric': '454-5555', 'john': '454-5195', 'michael': '454-9999'}\n",
+    "type(phonedict)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "len(phonedict)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'eric': '454-5555', 'john': '454-5195', 'michael': '454-9999'}\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(phonedict)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<b><span style=\"color:Red\">REMINDER:</span></b> When the items in the dictionary are printed, they are no longer in the same order as they were typed in.\n",
+    "- In a dictionary, you cannot assume that the items occur in any particular order.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The parts of the dictionary are named items, where each item consists of a key and a value.\n",
+    "\n",
+    "The keys(), values() and items() functions give those things for any dictionary, dictionary types.\n",
+    "- These can be iterated over, or they can be converted to a list if needed.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict_keys(['eric', 'john', 'michael'])"
+      ]
+     },
+     "execution_count": 23,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# fetch the dictionary keys\n",
+    "\n",
+    "phonedict.keys()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['eric', 'john', 'michael']"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# convert the dictionary keys to a list of values\n",
+    "\n",
+    "list(phonedict.keys())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict_values(['454-5555', '454-5195', '454-9999'])"
+      ]
+     },
+     "execution_count": 26,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# fetch the dictionary values\n",
+    "\n",
+    "phonedict.values()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['454-5555', '454-5195', '454-9999']"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# convert the dictionary values to a list of values\n",
+    "\n",
+    "list(phonedict.values())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict_items([('eric', '454-5555'), ('john', '454-5195'), ('michael', '454-9999')])"
+      ]
+     },
+     "execution_count": 29,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# fetch the dictionary items (tuple of key,value pairs)\n",
+    "\n",
+    "phonedict.items()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[('eric', '454-5555'), ('john', '454-5195'), ('michael', '454-9999')]"
+      ]
+     },
+     "execution_count": 31,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# convert the dictionary items to a list of tuples\n",
+    "\n",
+    "list(phonedict.items())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Retrieving Data from a dictionary"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To get the value of a particular key, we use square bracket index notation:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'454-5555'"
+      ]
+     },
+     "execution_count": 37,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "phonedict['eric']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Eric's phone number: 454-5555\n",
+      "John's phone number: 454-5195\n",
+      "Michael's phone number: 454-9999\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Eric's phone number: \"+phonedict['eric'])\n",
+    "print(\"John's phone number: \"+phonedict['john'])\n",
+    "print(\"Michael's phone number: \"+phonedict['michael'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### If you try to index with a key that is not defined, you get an error:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "KeyError",
+     "evalue": "'chris'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-38-b9d1486f3529>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mphonedict\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'chris'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m: 'chris'"
+     ]
+    }
+   ],
+   "source": [
+    "phonedict['chris']"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### To prevent this, you can always test – the “in” operator tests if a key is defined or not:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 39,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "'chris' in phonedict"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "'eric' in phonedict"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Or you use the .get() function to retrieve a value:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "KeyError",
+     "evalue": "'chris'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m                                  Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-41-b9d1486f3529>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mphonedict\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'chris'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mKeyError\u001b[0m: 'chris'"
+     ]
+    }
+   ],
+   "source": [
+    "phonedict['chris']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "phonedict.get('chris')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'454-7951'"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "phonedict.get('chris','Does Not Exist')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Dictionary Element Assignment"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can use an indexed element on the left-hand side of an assignment to defined a value for a key:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# adding chris to the dictionary and assigning him a phone number\n",
+    "phonedict['chris'] = '454-7951'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'eric': '454-5555', 'john': '454-5195', 'michael': '454-9999', 'chris': '454-7951'}\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(phonedict)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Iterating over a Dictionary"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "eric\n",
+      "john\n",
+      "michael\n",
+      "chris\n"
+     ]
+    }
+   ],
+   "source": [
+    "for item in phonedict:\n",
+    "    print(item)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For clarity, Dictionaries has a method for returning the collection of keys\n",
+    "- So the above iterable is better defined as:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "eric\n",
+      "john\n",
+      "michael\n",
+      "chris\n"
+     ]
+    }
+   ],
+   "source": [
+    "for item in phonedict.keys():\n",
+    "    print(item)"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### So if we want to iterate over a dictionary and to see both keys and items, we must use indexing with the key to get the value."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "eric 454-5555\n",
+      "john 454-5195\n",
+      "michael 454-9999\n",
+      "chris 454-7951\n"
+     ]
+    }
+   ],
+   "source": [
+    "for key in phonedict:\n",
+    "    print(key, phonedict[key])"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Or iterate directly over the items as pairs consisting of (key, value)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "eric 454-5555\n",
+      "john 454-5195\n",
+      "michael 454-9999\n",
+      "chris 454-7951\n"
+     ]
+    }
+   ],
+   "source": [
+    "for key,value in phonedict.items():\n",
+    "    print (key, value)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- In this example both the keys and the values were strings, but you can also use integers for keys.\n",
+    "\n",
+    "- Values can also be any type of number, and also other structures, such as lists.\n",
+    "    - Here is an example of a dictionary mapping string keys to counts.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 56,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "{'the': 60, 'dog': 3, 'beautiful': 6, 'man': 8}\n"
+     ]
+    }
+   ],
+   "source": [
+    "countdict = {'the': 60, 'dog': 3, 'beautiful': 6, 'man': 8}\n",
+    "print(countdict)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### If you sort a dictionary, it sorts the keys, so you can use this to print a dictionary in order of the keys."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# print out the items (key,value) of countdict in alphabetic order\n",
+    "# code here:\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Reading data from CSV files"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Many times we get datasets that have been put into Excel spread sheets that we want to read.\n",
+    " - --> We will use the Python CSV reader to read this data.\n",
+    "\n",
+    "The advantage of using the csv reader is that it will already split the lines of data for us, so that we don’t have to worry about spaces in text, and that it will handle various issues with quoted text.\n",
+    "\n",
+    "The csv returns each line of the file as a list of strings.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Goal: Load data from CSV into a list of dictionaries\n",
+    "\n",
+    "- File name is states_data.tsv\n",
+    "- There is a header row of data\n",
+    "- There are empty roes in the file\n",
+    "- There are commas in the integer valued fields\n",
+    "- There is an end of file message"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Consider the code below, which also lives in the file read_states_tsv.py"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Read 52 state data\n",
+      "State: Alabama  Abrv:  Ala.  Population:  4040587\n",
+      "State: Alaska  Abrv:  Alaska  Population:  550043\n",
+      "State: Arizona  Abrv:  Ariz.  Population:  3665228\n",
+      "State: Arkansas  Abrv:  Ark.  Population:  2350725\n",
+      "State: California  Abrv:  Calif.  Population:  29769021\n",
+      "State: Colorado  Abrv:  Colo.  Population:  3294394\n",
+      "State: Connecticut  Abrv:  Conn.  Population:  3287116\n",
+      "State: Delaware  Abrv:  Del.  Population:  666168\n",
+      "State: District of Columbia  Abrv:  D.C.  Population:  606900\n",
+      "State: Florida  Abrv:  Fla.  Population:  12937926\n",
+      "State: Georgia  Abrv:  Ga.  Population:  6478216\n",
+      "State: Hawaii  Abrv:  Hawaii  Population:  1108229\n",
+      "State: Idaho  Abrv:  Idaho  Population:  1006749\n",
+      "State: Illinois  Abrv:  Ill.  Population:  11430602\n",
+      "State: Indiana  Abrv:  Ind.  Population:  5544159\n",
+      "State: Iowa  Abrv:  Iowa  Population:  2776755\n",
+      "State: Kansas  Abrv:  Kans.  Population:  2477574\n",
+      "State: Kentucky  Abrv:  Ky.  Population:  3685296\n",
+      "State: Louisiana  Abrv:  La.  Population:  4219973\n",
+      "State: Maine  Abrv:  Maine  Population:  1227928\n",
+      "State: Maryland  Abrv:  Md.  Population:  4781468\n",
+      "State: Massachusetts  Abrv:  Mass.  Population:  6016425\n",
+      "State: Michigan  Abrv:  Mich.  Population:  9295297\n",
+      "State: Minnesota  Abrv:  Minn.  Population:  4375099\n",
+      "State: Mississippi  Abrv:  Miss.  Population:  2573216\n",
+      "State: Missouri  Abrv:  Mo.  Population:  5117073\n",
+      "State: Montana  Abrv:  Mont.  Population:  799065\n",
+      "State: Nebraska  Abrv:  Nebr.  Population:  1578385\n",
+      "State: Nevada  Abrv:  Nev.  Population:  1201833\n",
+      "State: New Hampshire  Abrv:  N.H.  Population:  1109252\n",
+      "State: New Jersey  Abrv:  N.J.  Population:  7730188\n",
+      "State: New Mexico  Abrv:  N.Mex.  Population:  1515069\n",
+      "State: New York  Abrv:  N.Y.  Population:  17990455\n",
+      "State: North Carolina  Abrv:  N.C.  Population:  6628637\n",
+      "State: North Dakota  Abrv:  N.Dak.  Population:  638800\n",
+      "State: Ohio  Abrv:  Ohio  Population:  10847115\n",
+      "State: Oklahoma  Abrv:  Okla.  Population:  3145585\n",
+      "State: Oregon  Abrv:  Oreg.  Population:  2842321\n",
+      "State: Pennsylvania  Abrv:  Pa.  Population:  11881643\n",
+      "State: Rhode Island  Abrv:  R.I.  Population:  1003464\n",
+      "State: South Carolina  Abrv:  S.C.  Population:  3468703\n",
+      "State: South Dakota  Abrv:  S.Dak.  Population:  696004\n",
+      "State: Tennessee  Abrv:  Tenn.  Population:  4877185\n",
+      "State: Texas  Abrv:  Tex.  Population:  16986510\n",
+      "State: Utah  Abrv:  Utah  Population:  1722850\n",
+      "State: Vermont  Abrv:  Vt.  Population:  562758\n",
+      "State: Virginia  Abrv:  Va.  Population:  6187358\n",
+      "State: Washington  Abrv:  Wash.  Population:  4866692\n",
+      "State: West Virginia  Abrv:  W.Va.  Population:  1793477\n",
+      "State: Wisconsin  Abrv:  Wis.  Population:  4891769\n",
+      "State: Wyoming  Abrv:  Wyo.  Population:  453588\n",
+      "State: United States  Abrv:    Population:  248691873\n"
+     ]
+    }
+   ],
+   "source": [
+    "import csv\n",
+    "\n",
+    "infile = 'states_data.tsv'\n",
+    "\n",
+    "# create new empty list\n",
+    "statesList = []\n",
+    "\n",
+    "with open(infile, 'r') as csvfile:\n",
+    "    # the csv file reader returns a list of the csv items on each line\n",
+    "    stateReader = csv.reader(csvfile,  dialect='excel', delimiter='\\t')\n",
+    "\n",
+    "    # from each line, a list of row items, put each element in a dictionary\n",
+    "    #   with a key representing the data\n",
+    "    for line in stateReader:\n",
+    "        #skip lines without data, specific for each file to catch non-data lines\n",
+    "        if line[0] == '' or line[0].startswith('Data') or line[0].startswith('*'):\n",
+    "            continue\n",
+    "        else:\n",
+    "            # create a dictionary for each state\n",
+    "            state = {}\n",
+    "            # add each piece of data under a key representing that column data\n",
+    "            state['name'] = line[0]\n",
+    "            state['abbrev'] = line[1]\n",
+    "            state['code'] = line[2]\n",
+    "            state['area'] = int(line[3].replace(',',''))\n",
+    "            state['pop'] = int(line[4].replace(',',''))\n",
+    "\n",
+    "            # add this state to the list\n",
+    "            statesList.append(state)\n",
+    "    \n",
+    "csvfile.close()\n",
+    "\n",
+    "print (\"Read\", len(statesList), \"state data\")\n",
+    "\n",
+    "# print a few fields from all of the states read from the file\n",
+    "\n",
+    "for state in statesList:\n",
+    "    print ('State:', state['name'], ' Abrv: ', state['abbrev'], ' Population: ', state['pop'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[{'abbrev': 'Ala.',\n",
+      "  'area': 52423,\n",
+      "  'code': 'AL',\n",
+      "  'name': 'Alabama',\n",
+      "  'pop': 4040587},\n",
+      " {'abbrev': 'Alaska',\n",
+      "  'area': 656424,\n",
+      "  'code': 'AK',\n",
+      "  'name': 'Alaska',\n",
+      "  'pop': 550043},\n",
+      " {'abbrev': 'Ariz.',\n",
+      "  'area': 114006,\n",
+      "  'code': 'AZ',\n",
+      "  'name': 'Arizona',\n",
+      "  'pop': 3665228},\n",
+      " {'abbrev': 'Ark.',\n",
+      "  'area': 53182,\n",
+      "  'code': 'AR',\n",
+      "  'name': 'Arkansas',\n",
+      "  'pop': 2350725},\n",
+      " {'abbrev': 'Calif.',\n",
+      "  'area': 163707,\n",
+      "  'code': 'CA',\n",
+      "  'name': 'California',\n",
+      "  'pop': 29769021},\n",
+      " {'abbrev': 'Colo.',\n",
+      "  'area': 104100,\n",
+      "  'code': 'CO',\n",
+      "  'name': 'Colorado',\n",
+      "  'pop': 3294394},\n",
+      " {'abbrev': 'Conn.',\n",
+      "  'area': 5544,\n",
+      "  'code': 'CT',\n",
+      "  'name': 'Connecticut',\n",
+      "  'pop': 3287116},\n",
+      " {'abbrev': 'Del.',\n",
+      "  'area': 2489,\n",
+      "  'code': 'DE',\n",
+      "  'name': 'Delaware',\n",
+      "  'pop': 666168},\n",
+      " {'abbrev': 'D.C.',\n",
+      "  'area': 68,\n",
+      "  'code': 'DC',\n",
+      "  'name': 'District of Columbia',\n",
+      "  'pop': 606900},\n",
+      " {'abbrev': 'Fla.',\n",
+      "  'area': 65756,\n",
+      "  'code': 'FL',\n",
+      "  'name': 'Florida',\n",
+      "  'pop': 12937926},\n",
+      " {'abbrev': 'Ga.',\n",
+      "  'area': 59441,\n",
+      "  'code': 'GA',\n",
+      "  'name': 'Georgia',\n",
+      "  'pop': 6478216},\n",
+      " {'abbrev': 'Hawaii',\n",
+      "  'area': 10932,\n",
+      "  'code': 'HI',\n",
+      "  'name': 'Hawaii',\n",
+      "  'pop': 1108229},\n",
+      " {'abbrev': 'Idaho',\n",
+      "  'area': 83574,\n",
+      "  'code': 'ID',\n",
+      "  'name': 'Idaho',\n",
+      "  'pop': 1006749},\n",
+      " {'abbrev': 'Ill.',\n",
+      "  'area': 57918,\n",
+      "  'code': 'IL',\n",
+      "  'name': 'Illinois',\n",
+      "  'pop': 11430602},\n",
+      " {'abbrev': 'Ind.',\n",
+      "  'area': 36420,\n",
+      "  'code': 'IN',\n",
+      "  'name': 'Indiana',\n",
+      "  'pop': 5544159},\n",
+      " {'abbrev': 'Iowa',\n",
+      "  'area': 56276,\n",
+      "  'code': 'IA',\n",
+      "  'name': 'Iowa',\n",
+      "  'pop': 2776755},\n",
+      " {'abbrev': 'Kans.',\n",
+      "  'area': 82282,\n",
+      "  'code': 'KS',\n",
+      "  'name': 'Kansas',\n",
+      "  'pop': 2477574},\n",
+      " {'abbrev': 'Ky.',\n",
+      "  'area': 40411,\n",
+      "  'code': 'KY',\n",
+      "  'name': 'Kentucky',\n",
+      "  'pop': 3685296},\n",
+      " {'abbrev': 'La.',\n",
+      "  'area': 51843,\n",
+      "  'code': 'LA',\n",
+      "  'name': 'Louisiana',\n",
+      "  'pop': 4219973},\n",
+      " {'abbrev': 'Maine',\n",
+      "  'area': 35387,\n",
+      "  'code': 'ME',\n",
+      "  'name': 'Maine',\n",
+      "  'pop': 1227928},\n",
+      " {'abbrev': 'Md.',\n",
+      "  'area': 12407,\n",
+      "  'code': 'MD',\n",
+      "  'name': 'Maryland',\n",
+      "  'pop': 4781468},\n",
+      " {'abbrev': 'Mass.',\n",
+      "  'area': 10555,\n",
+      "  'code': 'MA',\n",
+      "  'name': 'Massachusetts',\n",
+      "  'pop': 6016425},\n",
+      " {'abbrev': 'Mich.',\n",
+      "  'area': 96705,\n",
+      "  'code': 'MI',\n",
+      "  'name': 'Michigan',\n",
+      "  'pop': 9295297},\n",
+      " {'abbrev': 'Minn.',\n",
+      "  'area': 86943,\n",
+      "  'code': 'MN',\n",
+      "  'name': 'Minnesota',\n",
+      "  'pop': 4375099},\n",
+      " {'abbrev': 'Miss.',\n",
+      "  'area': 48434,\n",
+      "  'code': 'MS',\n",
+      "  'name': 'Mississippi',\n",
+      "  'pop': 2573216},\n",
+      " {'abbrev': 'Mo.',\n",
+      "  'area': 69709,\n",
+      "  'code': 'MO',\n",
+      "  'name': 'Missouri',\n",
+      "  'pop': 5117073},\n",
+      " {'abbrev': 'Mont.',\n",
+      "  'area': 147046,\n",
+      "  'code': 'MT',\n",
+      "  'name': 'Montana',\n",
+      "  'pop': 799065},\n",
+      " {'abbrev': 'Nebr.',\n",
+      "  'area': 77358,\n",
+      "  'code': 'NE',\n",
+      "  'name': 'Nebraska',\n",
+      "  'pop': 1578385},\n",
+      " {'abbrev': 'Nev.',\n",
+      "  'area': 110567,\n",
+      "  'code': 'NV',\n",
+      "  'name': 'Nevada',\n",
+      "  'pop': 1201833},\n",
+      " {'abbrev': 'N.H.',\n",
+      "  'area': 9351,\n",
+      "  'code': 'NH',\n",
+      "  'name': 'New Hampshire',\n",
+      "  'pop': 1109252},\n",
+      " {'abbrev': 'N.J.',\n",
+      "  'area': 8722,\n",
+      "  'code': 'NJ',\n",
+      "  'name': 'New Jersey',\n",
+      "  'pop': 7730188},\n",
+      " {'abbrev': 'N.Mex.',\n",
+      "  'area': 121598,\n",
+      "  'code': 'NM',\n",
+      "  'name': 'New Mexico',\n",
+      "  'pop': 1515069},\n",
+      " {'abbrev': 'N.Y.',\n",
+      "  'area': 54471,\n",
+      "  'code': 'NY',\n",
+      "  'name': 'New York',\n",
+      "  'pop': 17990455},\n",
+      " {'abbrev': 'N.C.',\n",
+      "  'area': 53821,\n",
+      "  'code': 'NC',\n",
+      "  'name': 'North Carolina',\n",
+      "  'pop': 6628637},\n",
+      " {'abbrev': 'N.Dak.',\n",
+      "  'area': 70704,\n",
+      "  'code': 'ND',\n",
+      "  'name': 'North Dakota',\n",
+      "  'pop': 638800},\n",
+      " {'abbrev': 'Ohio',\n",
+      "  'area': 44828,\n",
+      "  'code': 'OH',\n",
+      "  'name': 'Ohio',\n",
+      "  'pop': 10847115},\n",
+      " {'abbrev': 'Okla.',\n",
+      "  'area': 69903,\n",
+      "  'code': 'OK',\n",
+      "  'name': 'Oklahoma',\n",
+      "  'pop': 3145585},\n",
+      " {'abbrev': 'Oreg.',\n",
+      "  'area': 98386,\n",
+      "  'code': 'OR',\n",
+      "  'name': 'Oregon',\n",
+      "  'pop': 2842321},\n",
+      " {'abbrev': 'Pa.',\n",
+      "  'area': 46058,\n",
+      "  'code': 'PA',\n",
+      "  'name': 'Pennsylvania',\n",
+      "  'pop': 11881643},\n",
+      " {'abbrev': 'R.I.',\n",
+      "  'area': 1545,\n",
+      "  'code': 'RI',\n",
+      "  'name': 'Rhode Island',\n",
+      "  'pop': 1003464},\n",
+      " {'abbrev': 'S.C.',\n",
+      "  'area': 32008,\n",
+      "  'code': 'SC',\n",
+      "  'name': 'South Carolina',\n",
+      "  'pop': 3468703},\n",
+      " {'abbrev': 'S.Dak.',\n",
+      "  'area': 77121,\n",
+      "  'code': 'SD',\n",
+      "  'name': 'South Dakota',\n",
+      "  'pop': 696004},\n",
+      " {'abbrev': 'Tenn.',\n",
+      "  'area': 42146,\n",
+      "  'code': 'TN',\n",
+      "  'name': 'Tennessee',\n",
+      "  'pop': 4877185},\n",
+      " {'abbrev': 'Tex.',\n",
+      "  'area': 268601,\n",
+      "  'code': 'TX',\n",
+      "  'name': 'Texas',\n",
+      "  'pop': 16986510},\n",
+      " {'abbrev': 'Utah',\n",
+      "  'area': 84904,\n",
+      "  'code': 'UT',\n",
+      "  'name': 'Utah',\n",
+      "  'pop': 1722850},\n",
+      " {'abbrev': 'Vt.',\n",
+      "  'area': 9615,\n",
+      "  'code': 'VT',\n",
+      "  'name': 'Vermont',\n",
+      "  'pop': 562758},\n",
+      " {'abbrev': 'Va.',\n",
+      "  'area': 42777,\n",
+      "  'code': 'VA',\n",
+      "  'name': 'Virginia',\n",
+      "  'pop': 6187358},\n",
+      " {'abbrev': 'Wash.',\n",
+      "  'area': 71302,\n",
+      "  'code': 'WA',\n",
+      "  'name': 'Washington',\n",
+      "  'pop': 4866692},\n",
+      " {'abbrev': 'W.Va.',\n",
+      "  'area': 24231,\n",
+      "  'code': 'WV',\n",
+      "  'name': 'West Virginia',\n",
+      "  'pop': 1793477},\n",
+      " {'abbrev': 'Wis.',\n",
+      "  'area': 65499,\n",
+      "  'code': 'WI',\n",
+      "  'name': 'Wisconsin',\n",
+      "  'pop': 4891769},\n",
+      " {'abbrev': 'Wyo.',\n",
+      "  'area': 97818,\n",
+      "  'code': 'WY',\n",
+      "  'name': 'Wyoming',\n",
+      "  'pop': 453588},\n",
+      " {'abbrev': '',\n",
+      "  'area': 3787316,\n",
+      "  'code': '',\n",
+      "  'name': 'United States',\n",
+      "  'pop': 248691873}]\n"
+     ]
+    }
+   ],
+   "source": [
+    "pprint(statesList)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 61,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "invalid literal for int() with base 10: '4,040,587'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-61-163f195a04f5>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mnumstr\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'4,040,587'\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 4\u001b[0;31m \u001b[0mint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mnumstr\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m: invalid literal for int() with base 10: '4,040,587'"
+     ]
+    }
+   ],
+   "source": [
+    "# How we handled commas in the code above:\n",
+    "\n",
+    "numstr = '4,040,587'\n",
+    "int(numstr)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "4040587"
+      ]
+     },
+     "execution_count": 62,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# replace the commas with empty text\n",
+    "\n",
+    "int(numstr.replace(',',''))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Try and Except"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### PROBLEM:\n",
+    "In our current version of the program, we made sure that the strings that we tried to convert to integers didn’t have any commas.  But what if there were some other characters that caused problems for the strings?\n",
+    "- <b>We can’t count on our data always being error-free.</b>\n",
+    "\n",
+    "\n",
+    "- If we are trying to convert numbers as part of a larger program, then the program stops at the error.\n",
+    "- Whenever a run-time error can occur, we can put the statement that might cause the error inside a “try” statement, and give an “except” statement that it can execute instead."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Suppose that we replace what looks like a zero with a capital S, or some other alphabetic character.\n",
+    "\n",
+    "As expected we get an error when we try to convert letters to a number.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "invalid literal for int() with base 10: '450099S'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-65-91d3ddd62be9>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mnumstr\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m'4,500,99S'\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mnumstr\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mreplace\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m','\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m''\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m: invalid literal for int() with base 10: '450099S'"
+     ]
+    }
+   ],
+   "source": [
+    "numstr = '4,500,99S'  \n",
+    "int(numstr.replace(',',''))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- So we put those statements inside a “try” clause!\n",
+    "- In this case, we give the user a message in the “except”.\n",
+    "\n",
+    "<b>NOTE:</b> If you don’t put the names of any errors, it will catch all errors.\n",
+    "- You can list exactly what errors you are going to catch because you can have multiple except "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Error\n"
+     ]
+    }
+   ],
+   "source": [
+    "try:\n",
+    "    int(numstr.replace(',',''))\n",
+    "except ValueError:\n",
+    "    print ('Error')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##### Here is the explanation of the order of execution from the Python documentation:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The try statement works as follows.\n",
+    "    - First, the try clause (the statement(s) between the try and except keywords) is executed.\n",
+    "    - If no exception occurs, the except clause is skipped and execution of the try statement is finished.\n",
+    "    - If an exception occurs during execution of the try clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement.\n",
+    "\n",
+    "\n",
+    "    - If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements; if no handler is found, it is an unhandled exception and execution stops with a message as shown above.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Let's Add Try and Except Logic to prevent our code below from breaking:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# let's append to a list only even values yielded by range(N)\n",
+    "\n",
+    "evens = []\n",
+    "user_input = int(input('Enter an integer great than 0: '))\n",
+    "\n",
+    "for i in range(user_input):\n",
+    "    if i%2 == 0 and i>0: # Is 0 even?\n",
+    "        evens.append(i)\n",
+    "\n",
+    "print('\\nEven integers in range (0 - '+str(user_input)+'):')\n",
+    "print(evens)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Challenge: Add in try and except logic to the else clause below"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Read 52 state data\n",
+      "State: Alabama  Abrv:  Ala.  Population:  4040587\n",
+      "State: Alaska  Abrv:  Alaska  Population:  550043\n",
+      "State: Arizona  Abrv:  Ariz.  Population:  3665228\n",
+      "State: Arkansas  Abrv:  Ark.  Population:  2350725\n",
+      "State: California  Abrv:  Calif.  Population:  29769021\n",
+      "State: Colorado  Abrv:  Colo.  Population:  3294394\n",
+      "State: Connecticut  Abrv:  Conn.  Population:  3287116\n",
+      "State: Delaware  Abrv:  Del.  Population:  666168\n",
+      "State: District of Columbia  Abrv:  D.C.  Population:  606900\n",
+      "State: Florida  Abrv:  Fla.  Population:  12937926\n",
+      "State: Georgia  Abrv:  Ga.  Population:  6478216\n",
+      "State: Hawaii  Abrv:  Hawaii  Population:  1108229\n",
+      "State: Idaho  Abrv:  Idaho  Population:  1006749\n",
+      "State: Illinois  Abrv:  Ill.  Population:  11430602\n",
+      "State: Indiana  Abrv:  Ind.  Population:  5544159\n",
+      "State: Iowa  Abrv:  Iowa  Population:  2776755\n",
+      "State: Kansas  Abrv:  Kans.  Population:  2477574\n",
+      "State: Kentucky  Abrv:  Ky.  Population:  3685296\n",
+      "State: Louisiana  Abrv:  La.  Population:  4219973\n",
+      "State: Maine  Abrv:  Maine  Population:  1227928\n",
+      "State: Maryland  Abrv:  Md.  Population:  4781468\n",
+      "State: Massachusetts  Abrv:  Mass.  Population:  6016425\n",
+      "State: Michigan  Abrv:  Mich.  Population:  9295297\n",
+      "State: Minnesota  Abrv:  Minn.  Population:  4375099\n",
+      "State: Mississippi  Abrv:  Miss.  Population:  2573216\n",
+      "State: Missouri  Abrv:  Mo.  Population:  5117073\n",
+      "State: Montana  Abrv:  Mont.  Population:  799065\n",
+      "State: Nebraska  Abrv:  Nebr.  Population:  1578385\n",
+      "State: Nevada  Abrv:  Nev.  Population:  1201833\n",
+      "State: New Hampshire  Abrv:  N.H.  Population:  1109252\n",
+      "State: New Jersey  Abrv:  N.J.  Population:  7730188\n",
+      "State: New Mexico  Abrv:  N.Mex.  Population:  1515069\n",
+      "State: New York  Abrv:  N.Y.  Population:  17990455\n",
+      "State: North Carolina  Abrv:  N.C.  Population:  6628637\n",
+      "State: North Dakota  Abrv:  N.Dak.  Population:  638800\n",
+      "State: Ohio  Abrv:  Ohio  Population:  10847115\n",
+      "State: Oklahoma  Abrv:  Okla.  Population:  3145585\n",
+      "State: Oregon  Abrv:  Oreg.  Population:  2842321\n",
+      "State: Pennsylvania  Abrv:  Pa.  Population:  11881643\n",
+      "State: Rhode Island  Abrv:  R.I.  Population:  1003464\n",
+      "State: South Carolina  Abrv:  S.C.  Population:  3468703\n",
+      "State: South Dakota  Abrv:  S.Dak.  Population:  696004\n",
+      "State: Tennessee  Abrv:  Tenn.  Population:  4877185\n",
+      "State: Texas  Abrv:  Tex.  Population:  16986510\n",
+      "State: Utah  Abrv:  Utah  Population:  1722850\n",
+      "State: Vermont  Abrv:  Vt.  Population:  562758\n",
+      "State: Virginia  Abrv:  Va.  Population:  6187358\n",
+      "State: Washington  Abrv:  Wash.  Population:  4866692\n",
+      "State: West Virginia  Abrv:  W.Va.  Population:  1793477\n",
+      "State: Wisconsin  Abrv:  Wis.  Population:  4891769\n",
+      "State: Wyoming  Abrv:  Wyo.  Population:  453588\n",
+      "State: United States  Abrv:    Population:  248691873\n"
+     ]
+    }
+   ],
+   "source": [
+    "# code here:\n",
+    "\n",
+    "import csv\n",
+    "\n",
+    "\n",
+    "\n",
+    "infile = 'states_data.tsv'\n",
+    "\n",
+    "\n",
+    "\n",
+    "# create new empty list\n",
+    "statesList = []\n",
+    "\n",
+    "\n",
+    "\n",
+    "with open(infile, 'r') as csvfile:\n",
+    "    # the csv file reader returns a list of the csv items on each line\n",
+    "    stateReader = csv.reader(csvfile,  dialect='excel', delimiter='\\t')\n",
+    "\n",
+    "    # from each line, a list of row items, put each element in a dictionary\n",
+    "    #   with a key representing the data\n",
+    "    for line in stateReader:\n",
+    "        #skip lines without data, specific for each file to catch non-data lines\n",
+    "        if line[0] == '' or line[0].startswith('Data') or line[0].startswith('*'):\n",
+    "            continue\n",
+    "        else:\n",
+    "            \n",
+    "            # create a dictionary for each state\n",
+    "            state = {}\n",
+    "            # add each piece of data under a key representing that column data\n",
+    "            state['name'] = line[0]\n",
+    "            state['abbrev'] = line[1]\n",
+    "            state['code'] = line[2]\n",
+    "            state['area'] = int(line[3].replace(',',''))\n",
+    "            state['pop'] = int(line[4].replace(',',''))\n",
+    "\n",
+    "            # add this state to the list\n",
+    "            statesList.append(state)\n",
+    "    \n",
+    "    \n",
+    "    \n",
+    "csvfile.close()\n",
+    "\n",
+    "\n",
+    "\n",
+    "print (\"Read\", len(statesList), \"state data\")\n",
+    "\n",
+    "\n",
+    "\n",
+    "# print a few fields from all of the states read from the file\n",
+    "\n",
+    "\n",
+    "\n",
+    "for state in statesList:\n",
+    "    print ('State:', state['name'], ' Abrv: ', state['abbrev'], ' Population: ', state['pop'])   \n",
+    "    \n",
+    "    \n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Review\n",
+    "\n",
+    "- Tuples\n",
+    "- Dictionaries\n",
+    "- Reading in CSV Files\n",
+    "- Try and Except logic"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+

@@ -1,0 +1,1 @@
+file=open('C:\Users\KARTHEEK SP\Desktop\IST652\NBA_attendance_1989.txt')

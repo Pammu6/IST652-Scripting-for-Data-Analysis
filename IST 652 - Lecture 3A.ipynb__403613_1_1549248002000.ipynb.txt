@@ -1,0 +1,1096 @@
+﻿{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# IST 652 - Lecture 3A"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Revisit:\n",
+    "    - Conditionals\n",
+    "    - Loops\n",
+    "    \n",
+    "    \n",
+    "## Explore:\n",
+    "    - Reading in Files\n",
+    "    - Navigating file locations and folders\n",
+    "    - Multiple Variable Assignment\n",
+    "    - List Operations:\n",
+    "        - Max, Min, Sum\n",
+    "        - List Comprehensions\n",
+    "        - Enumerate, Index\n",
+    "        - Sorting"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pprint import pprint"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Review\n",
+    "## Loops and Conditionals"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Revisit the code from last class:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Enter an integer great than 0: c\n"
+     ]
+    },
+    {
+     "ename": "ValueError",
+     "evalue": "invalid literal for int() with base 10: 'c'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-7-1caa7ca1421f>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mevens\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 4\u001b[0;31m \u001b[0muser_input\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0minput\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Enter an integer great than 0: '\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      6\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mi\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mrange\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0muser_input\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: invalid literal for int() with base 10: 'c'"
+     ]
+    }
+   ],
+   "source": [
+    "# let's append to a list only even values yielded by range(N)\n",
+    "\n",
+    "evens = []\n",
+    "user_input = int(input('Enter an integer great than 0: '))\n",
+    "\n",
+    "for i in range(user_input):\n",
+    "    if i%2 == 0 and i>0: # Is 0 even?\n",
+    "        evens.append(i)\n",
+    "\n",
+    "print('\\nEven integers in range (0 - '+str(user_input)+'):')\n",
+    "print(evens)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "# Explore"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### We'll be looking at an NBA Attendence and Pricing Data Set"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# This program reads a file and prints the lines\n",
+    "# open the file for reading (in the same directory as the program)\n",
+    "NBAfile = open ('NBA_attendance_1989.txt', 'r')\n",
+    "# iterate over the lines of the file and count the number of lines\n",
+    "count = 0\n",
+    "for line in NBAfile:\n",
+    "    # increment adds one to the count variable\n",
+    "    count += 1\n",
+    "print('Read', count, 'lines from file')\n",
+    "NBAfile.close()\n"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Each line is a string that has a newline character at the end.\n",
+    "- The newline character can be written as ‘\\n’ in strings.\n",
+    "- However, the string strip function will remove any white space, so we can remove the newlines to get plain strings."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Here are the changes, just showing the inner part of the program:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NBAfile = open ('NBA_attendance_1989.txt', 'r')\n",
+    "count = 0\n",
+    "for line in NBAfile:\n",
+    "    # increment adds one to the count variable\n",
+    "    count += 1\n",
+    "    textline = line.strip()    \n",
+    "    print (textline)\n",
+    "    \n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Now it is a quite common data science program organization to read all the data into some python data structures, and then do all our processing.\n",
+    "- So let’s save these strings in a list as we read them."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NBAfile = open ('NBA_attendance_1989.txt', 'r')\n",
+    "\n",
+    "count = 0\n",
+    "NBAlist = [ ]\n",
+    "\n",
+    "for line in NBAfile:\n",
+    "    # increment adds one to the count variable\n",
+    "    count += 1\n",
+    "    textline = line.strip()    \n",
+    "    NBAlist.append(textline)\n",
+    "    \n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Let's Check to see what this new list of elements looks like:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# What do the first 5 records in our list look like?\n",
+    "# remember pprint is a short for pretty print and adds additional formatting when you print\n",
+    "pprint(NBAlist[:5])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### <i><span style=\"color:red\">^^^ This is pretty ugly</span></i>\n",
+    "\n",
+    "- Next, we would like to fetch the individual items from each line.\n",
+    "- For this there is a function called split()\n",
+    "    - that takes a string and produces a list of items separated by white space (the default)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NBAlist[0]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Here is the script incorporating the split() function"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NBAlist[0].split('\\t')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Here is the same ingestion script, but now incorporating the split() function\n",
+    "\n",
+    "NBAfile = open ('NBA_attendance_1989.txt', 'r')\n",
+    "\n",
+    "count = 0\n",
+    "NBAlist = [ ]\n",
+    "\n",
+    "for line in NBAfile:\n",
+    "    # increment adds one to the count variable\n",
+    "    count += 1\n",
+    "    textline = line.strip()    \n",
+    "    items = textline.split()    \n",
+    "    NBAlist.append(items)\n",
+    "    \n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[['Atlanta', '13993', '20.06'],\n",
+      " ['Boston', '14916', '22.54'],\n",
+      " ['Charlotte', '23901', '17'],\n",
+      " ['Chicago', '18404', '21.98'],\n",
+      " ['Cleveland', '16969', '19.63'],\n",
+      " ['Dallas', '16868', '17.05'],\n",
+      " ['Denver', '12668', '17.4'],\n",
+      " ['Detroit', '21454', '24.42'],\n",
+      " ['Golden_State', '15025', '17.04'],\n",
+      " ['Houston', '15846', '17.56'],\n",
+      " ['Indiana', '12885', '13.77'],\n",
+      " ['LA_Clippers', '11869', '21.95'],\n",
+      " ['LA_Lakers', '17378', '29.18'],\n",
+      " ['Miami', '15008', '17.6'],\n",
+      " ['Milwaukee', '16088', '14.08'],\n",
+      " ['Minnesota', '26160', '10.92'],\n",
+      " ['New_Jersey', '12160', '13.31'],\n",
+      " ['New_York', '17815', '22.7'],\n",
+      " ['Orlando', '15606', '20.47'],\n",
+      " ['Philadelphia', '14017', '19.04'],\n",
+      " ['Phoenix', '14114', '16.59'],\n",
+      " ['Portland', '12884', '22.19'],\n",
+      " ['Sacramento', '17014', '16.96'],\n",
+      " ['San_Antonio', '14722', '16.79'],\n",
+      " ['Seattle', '12244', '18.11'],\n",
+      " ['Utah', '12616', '18.41'],\n",
+      " ['Washington', '11565', '14.55']]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# What does our new list look like?\n",
+    "pprint(NBAlist)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "So far, when we've looked at the NBA data, we've been able to:\n",
+    "- read that data into Python data structures <i>(specifically lists) </i>\n",
+    "- split the data into smaller list elements\n",
+    "- print the data to screen and eyeball results"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  <span style=\"color:DarkOrange\"> This works for files with 20 lines of data, but not if there are1,000 lines, or 10,000 lines, or <u>1 million lines</u>.</span>\n",
+    "\n",
+    "- With this data, what questions could we ask to characterize or summarize the data?  In this session, we’ll address the following questions:"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<u>For instance:</u>\n",
+    "- <b>What is the average attendance and ticket prices of the NBA teams?</b>\n",
+    "- <b>Which teams had the maximum attendance and maximum ticket price?</b>\n"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Changing directory to read a file from the Python interpreter"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Option 1 - Articulating the full file path when referencing the location"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## Option 1\n",
+    "filepath = ''     # put the path to your file here\n",
+    "# on my mac, the path is something like\n",
+    "# filepath = '/Users/bennichols_cb4/Desktop/personal/Adjuncting/IST652/Spring2019/Lecture/Week 3/NBA_attendance_1989.txt'\n",
+    "# Here we show how to open the file with a complete path and read the entire contents into one string:\n",
+    "NBAfile = open(filepath, 'r')\n",
+    "NBAstring = NBAfile.read()\n",
+    "print(NBAstring)\n",
+    "\n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Option 2 - Import os to get access to operating system functions\n",
+    "- one of which is getcwd(), for retrieving the current working directory"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import os\n",
+    "os.getcwd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# os.chdir('')     # put your path in between string quotes\n",
+    "# on my mac\n",
+    "# os.chdir('/Users/bennichols_cb4/Desktop/personal/Adjuncting/IST652/Spring2019/Lecture/Week 2/') "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.getcwd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "os.chdir('/Users/bennichols_cb4/Desktop/personal/Adjuncting/IST652/Spring2019/Lecture/Week 3/')\n",
+    "\n",
+    "# And now we can use the open without a path:\n",
+    "NBAfile = open('NBA_attendance_1989.txt', 'r')\n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Option 3 - Import glob to retrieve paths based on queries of directory names"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from glob import glob"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "GLOB Docs: https://docs.python.org/2/library/glob.html"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Notice the wildacard search at the end of my path '...Lectre/*', this will return all contents which live in this folder hierarchy.\n",
+    "glob('/Users/bennichols_cb4/Desktop/personal/Adjuncting/IST652/Spring2019/Lecture/*')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "lecture_folders = glob('/Users/bennichols_cb4/Desktop/personal/Adjuncting/IST652/Spring2019/Lecture/*')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# And now we can use the open function with concatenated file path and directory scheme:\n",
+    "path = lecture_folders[2]+'/NBA_attendance_1989.txt'\n",
+    "NBAfile = open(path, 'r')\n",
+    "NBAfile.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Analytical Functions: SUM, MAX, MIN"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Looking at this data, how can we answer the questions about attendances and ticket prices?\n",
+    "\n",
+    "- We need to get all the attendances in one list and the ticket prices in another.\n",
+    "    - If this were an array, we could just select the second column and the third column, but we’ll cover that later when we do numpy arrays and data frames.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Reminder of what the NBA List looks like:\n",
+    "pprint(NBAlist)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# create the list of attendances and convert each string of numbers to an int\n",
+    "\n",
+    "attendances = []\n",
+    "\n",
+    "for line in NBAlist:\n",
+    "    # during each iteration (line): \n",
+    "        # 1. access the 2nd element [1]\n",
+    "        # 2. convert it to an int (int())\n",
+    "        # 3. Add it to the attendances list\n",
+    "    attendances.append( int( line[1] ) )\n",
+    "\n",
+    "pprint(attendances)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  <span style=\"color:DarkOrange\"> We can do the same thing using a technique called a list comprehension.</span>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A list comprehension consists of an outer set of square brackets with a designation of a list element which may use an iteration variable given by the following for loop header. It is a shorter way to express looping through a collection of elements and appending as you go:\n",
+    "\n",
+    "- https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Example: Return the first 10 square numbers"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# start with all integers 0 through 9:\n",
+    "range(11)\n",
+    "\n",
+    "# then convert that to a list:\n",
+    "list(range(11))\n",
+    "\n",
+    "# Remove the element 0:\n",
+    "list(range(11))[1:]\n",
+    "\n",
+    "# then square each value:\n",
+    "[x**2 for x in list(range(11))[1:]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Decompose the letters in apple\n",
+    "\n",
+    "decompose = [('letter: '+ char) for char in 'apple']\n",
+    "pprint(decompose)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### You can Also Add Conditions to a List Comprehension"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Return only even numbers up to 10\n",
+    "integers = [i for i in range(10)]\n",
+    "\n",
+    "even_integers = [elem for elem in integers if ((elem % 2) == 0)]\n",
+    "pprint(even_integers)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Simplifying even more:\n",
+    "[elem for elem in [i for i in range(10)] if ((elem % 2) == 0)]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Back to the NBAlist"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create the attendances list using a list comprehension:\n",
+    "NBAlist"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Python has a number of numeric functions built-in including:\n",
+    " - sum() for adding all the elements of a list with numbers\n",
+    " - max() to find the maximum element\n",
+    " - min() to find the minimum element"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "sum(attendances)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max(attendances)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "min(attendances)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Calculate the average (mean) of attendances"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Code here:\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### <i><span style=\"color:red\">Quick Tip - Multiple Variable assignment!</span></i>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we will do a similar thing for the prices, but instead of getting each line as a list (of three items), we can use multiple variable assignment to give a variable name to each of the three elements instead of to the whole list."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "team, att, price = NBAlist[0]\n",
+    "print(team)\n",
+    "print(att)\n",
+    "print(price)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Option 1 - Looping with multi-var assignment\n",
+    "\n",
+    "prices = [ ] \n",
+    "for (team, att, price) in NBAlist:\n",
+    "    prices.append(float(price))\n",
+    "\n",
+    "print(prices)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Option 2 - List Comprehension multi-var assignment\n",
+    "\n",
+    "prices = [float(price) for (team, att, price) in NBAlist]\n",
+    "print(prices)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Calculate the average (mean) of prices:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Code here:\n"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Next we want to use the max() function to find the maximum price."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max_price = max(prices)\n",
+    "print(max_price)"
+   ]
+  },
+  {
+   "attachments": {},
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  <span style=\"color:darkorange\">However, what we really want to know is which team had the maximum price...</span>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "There is a find() function for strings which returns the index of the substring within the query string:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "'apple'.find('e')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "But this is a case where strings and lists have different functions, <b> and <u>lists</u> don’t have a find() function. </b>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Instead, there is a function called <b>index</b> that returns the first index of an item in a list."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# fetch the first index in the prices list where the element is equal to the max_price\n",
+    "prices.index(max_price)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Use the index to retrieve the entire data record\n",
+    "NBAlist[ prices.index( max_price ) ]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Equivalent statements:\n",
+    "NBAlist[ 12 ] == NBAlist[ prices.index( max_price ) ]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### However - Suppose you wanted to know all the occurrences of an item in a list.\n",
+    "\n",
+    "- There is a function enumerate() that for any list will generate another list with the index numbers and elements.\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "enumerate(attendances)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for pair in enumerate(attendances):\n",
+    "    print(pair)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# When iterating, you can unpack both elements and access them - for x,y in list\n",
+    "\n",
+    "for index, value in enumerate(['ant','bee','cat','bee','dog']):\n",
+    "    if value == 'bee':\n",
+    "        print('Found','bee at location', index)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Or save these indexes in a list, shown here using a list comprehension:\n",
+    "locations = [index for (index,value) in enumerate(['ant','bee','cat','bee','dog']) if value == 'bee']\n",
+    "print(locations)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Now we can apply this to get all the teams with maximum attendance:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max_attendance = max(attendances)\n",
+    "\n",
+    "for index, value  in enumerate(attendances):\n",
+    "    if value == max_attendance:\n",
+    "        print('Found max', max_attendance, 'at index', index, 'for team', NBAlist[index][0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Sorting Lists"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Another useful strategy for exploring data is to sort the data by various criteria.\n",
+    "- In Python, there are TWO sort functions for working on lists"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### #1 - Sorting inplace (modifying the list variable)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fruit = ['banana', 'apple', 'acai', 'cherry', 'figs', 'apple', 'dates']\n",
+    "fruit.sort()\n",
+    "pprint(fruit)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### #2 - Producing a new sorted list and leaving the original list unchanged"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "fruit = ['banana', 'apple', 'acai', 'cherry', 'figs', 'apple', 'dates']\n",
+    "fruit_sorted = sorted(fruit)\n",
+    "fruit_sorted\n",
+    "pprint(fruit)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- But what if we want to sort our NBA list by one of the other attributes?\n",
+    "- We can give the sorted function a function parameter, that takes an element of the list and selects a key to sort by."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- The sorted function has some named parameters for which you specify a keyword followed by and equal sign and the parameter.\n",
+    "\n",
+    "- For sorting, we can give a nameless (or anonymous) function, indicated by the keyword <b>lambda</b>, that takes a list item and selects which element of the list to sort by."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# sort by index 1, attendance/\n",
+    "newlist = sorted(NBAlist, key=lambda item: item[1])\n",
+    "pprint(newlist)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- But this is in ascending order and we may want our list in <u>descending order</u>.\n",
+    "- There is another named parameter, reverse, that can specify that.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "newlist = sorted(NBAlist, key=lambda item: item[1], reverse=True)\n",
+    "pprint(newlist)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Sorting Docs: https://docs.python.org/3/howto/sorting.html#sortinghowto"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# To code:\n",
+    "# How can we sort the teams by name in descending order?\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "---"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Review\n",
+    "\n",
+    "- Reading in Files\n",
+    "- Navigating file locations and folders\n",
+    "- Multiple Variable Assignment\n",
+    "- List Operations:\n",
+    "    - Max, Min, Sum\n",
+    "    - List Comprehensions\n",
+    "    - Enumerate, Index\n",
+    "    - Sorting"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.1"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
+
